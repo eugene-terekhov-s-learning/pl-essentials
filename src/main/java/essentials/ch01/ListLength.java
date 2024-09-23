@@ -2,14 +2,20 @@ package essentials.ch01;
 
 import java.util.Collection;
 
-public class ListLength<T> {
+public final class ListLength<T> {
     private final Collection<T> list;
 
-    public ListLength(Collection<T> list) {
+    public ListLength(final Collection<T> list) {
         this.list = list;
     }
 
     public int length() {
-        return Integer.MIN_VALUE;
+        final int result;
+        if (this.list.isEmpty()) {
+            result = 0;
+        } else {
+            result = Integer.MIN_VALUE;
+        }
+        return result;
     }
 }
