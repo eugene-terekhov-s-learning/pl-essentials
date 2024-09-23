@@ -4,29 +4,30 @@ import java.util.function.Function;
 
 public class Procedures {
     public static Function<ListOfValues<?>, Integer> listLength = list -> {
-        final int result;
         if (list.isEmpty()) {
-            result = 0;
+            return 0;
         } else {
-            ListOfValues<?> objects = list.cdr();
-            result = Procedures.listLength.apply(objects) + 1;
+            return Procedures.listLength.apply(list.cdr()) + 1;
         }
-        return result;
     };
 
     public static Function<ListIntegerCouple, ?> nthElement = couple -> {
-        final ListOfValues<?> list = couple.list();
-        if (list.isEmpty()) {
+        final ListOfValues<?> lst = couple.list();
+        final Integer n = couple.integer();
+
+        if (lst.isEmpty()) {
             throw new IllegalArgumentException("List should not be empty");
+        } else {
+            if (n == 0) {
+                return lst.car();
+            } else {
+                return Procedures.nthElement.apply(
+                    new ListIntegerCouple(
+                        lst.cdr(),
+                        n - 1
+                    )
+                );
+            }
         }
-        if (couple.integer() == 0) {
-            return list.car();
-        }
-        return Procedures.nthElement.apply(
-            new ListIntegerCouple(
-                list.cdr(),
-                couple.integer() - 1
-            )
-        );
     };
 }
