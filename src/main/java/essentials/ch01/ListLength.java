@@ -18,4 +18,9 @@ public final class ListLength<T> {
         }
         return result;
     }
+
+
+    public Collection<T> cdr() {
+        return this.list;
+    }
 }

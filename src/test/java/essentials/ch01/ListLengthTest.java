@@ -7,13 +7,23 @@ import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
 final class ListLengthTest {
+    public static final ListLength<String> EMPTY_LIST = new ListLength<>(List.of());
+
     @Test
     void whenListIsEmpty_thenReturnsZero() {
-        final ListLength<String> target = new ListLength<>(List.of());
         MatcherAssert.assertThat(
             "Should return 0 for an empty list",
-            target.length(),
+            EMPTY_LIST.length(),
             Matchers.is(0)
+        );
+    }
+
+    @Test
+    void whenListIsEmpty_thenItsCdrIsEmpty() {
+        MatcherAssert.assertThat(
+            "",
+            EMPTY_LIST.cdr().isEmpty(),
+            Matchers.is(true)
         );
     }
 }
