@@ -6,11 +6,13 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
+
 final class ListOfValuesTest {
     public static final ListOfValues<String> EMPTY_LIST = new ListOfValues<>(List.of());
 
     @Test
-    void whenListIsEmpty_thenReturnsZero() {
+    void whenListIsEmpty_thenLengthReturnsZero() {
         MatcherAssert.assertThat(
             "Should return 0 for an empty list",
             Procedures.listLength.apply(EMPTY_LIST),
@@ -26,6 +28,14 @@ final class ListOfValuesTest {
             Procedures.listLength.apply(strings),
             Matchers.is(1)
         );
+    }
+
+    @Test
+    void whenListIsEmpty_thenNthElementShouldThrow() {
+        ListIntegerCouple couple = new ListIntegerCouple(EMPTY_LIST, 0);
+        assertThatThrownBy(
+            () -> Procedures.nthElement.apply(couple)
+        ).isInstanceOf(IllegalArgumentException.class);
     }
 
     @Test

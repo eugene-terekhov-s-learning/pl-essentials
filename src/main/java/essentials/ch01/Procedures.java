@@ -13,4 +13,12 @@ public class Procedures {
         }
         return result;
     };
+
+    public static Function<ListIntegerCouple, ?> nthElement = couple -> {
+        final ListOfValues<?> list = couple.list();
+        if (list.isEmpty()) {
+            throw new IllegalArgumentException("List should not be empty");
+        }
+        return null;
+    };
 }
