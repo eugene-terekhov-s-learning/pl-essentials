@@ -6,8 +6,8 @@ import org.hamcrest.MatcherAssert;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.Test;
 
-final class ListLengthTest {
-    public static final ListLength<String> EMPTY_LIST = new ListLength<>(List.of());
+final class ListOfValuesTest {
+    public static final ListOfValues<String> EMPTY_LIST = new ListOfValues<>(List.of());
 
     @Test
     void whenListIsEmpty_thenReturnsZero() {
@@ -21,9 +21,19 @@ final class ListLengthTest {
     @Test
     void whenListIsEmpty_thenItsCdrIsEmpty() {
         MatcherAssert.assertThat(
-            "",
+            "Should return an empty list for cdr of an empty list",
             EMPTY_LIST.cdr().isEmpty(),
             Matchers.is(true)
+        );
+    }
+
+    @Test
+    void whenListIsNotEmpty_thenItsCdrContainsAllElementsExceptTheFirst() {
+        final ListOfValues<String> list = new ListOfValues<>(List.of("a", "b", "c"));
+        MatcherAssert.assertThat(
+            "Should return a list without the first element",
+            list.cdr(),
+            Matchers.contains("b", "c")
         );
     }
 }
