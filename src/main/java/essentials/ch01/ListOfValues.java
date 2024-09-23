@@ -11,4 +11,8 @@ public final class ListOfValues<T> extends AbstractList<T> {
     public ListOfValues<T> cdr() {
         return new ListOfValues<>(this.list.stream().skip(1).toList());
     }
+
+    public T car() {
+        return this.list.stream().findFirst().orElseThrow();
+    }
 }

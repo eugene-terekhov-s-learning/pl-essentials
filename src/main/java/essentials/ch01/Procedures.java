@@ -19,6 +19,9 @@ public class Procedures {
         if (list.isEmpty()) {
             throw new IllegalArgumentException("List should not be empty");
         }
+        if (couple.integer() == 0) {
+            return list.car();
+        }
         return null;
     };
 }

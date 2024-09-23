@@ -39,6 +39,19 @@ final class ListOfValuesTest {
     }
 
     @Test
+    void whenListIsNotEmptyAndIndexIsZero_thenShouldReturnTheFirstElement() {
+        final ListIntegerCouple couple = new ListIntegerCouple(
+            new ListOfValues<>(List.of("a", "b", "c")),
+            0
+        );
+        MatcherAssert.assertThat(
+            "Should return the first element of the list",
+            Procedures.nthElement.apply(couple),
+            Matchers.is("a")
+        );
+    }
+
+    @Test
     void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
         ListOfValues<String> strings = new ListOfValues<>(List.of("a", "b", "c"));
         MatcherAssert.assertThat(
