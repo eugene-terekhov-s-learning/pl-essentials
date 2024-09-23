@@ -15,7 +15,7 @@ public class Procedures {
         final ListOfValues<?> lst = couple.list();
         final Integer n = couple.integer();
 
-        if (lst.isEmpty()) {
+        if (Procedures.listLength.apply(lst) <= n) {
             throw Report.listTooShort.apply(n);
         } else {
             if (n == 0) {

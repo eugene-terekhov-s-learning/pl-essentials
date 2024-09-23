@@ -12,6 +12,25 @@ final class ListOfValuesTest {
     public static final ListOfValues<String> EMPTY_LIST = new ListOfValues<>(List.of());
 
     @Test
+    void whenListIsEmpty_thenItsCdrIsEmpty() {
+        MatcherAssert.assertThat(
+            "Should return an empty list for cdr of an empty list",
+            EMPTY_LIST.cdr().isEmpty(),
+            Matchers.is(true)
+        );
+    }
+
+    @Test
+    void whenListIsNotEmpty_thenItsCdrContainsAllElementsExceptTheFirst() {
+        final ListOfValues<String> list = new ListOfValues<>(List.of("a", "b", "c"));
+        MatcherAssert.assertThat(
+            "Should return a list without the first element",
+            list.cdr(),
+            Matchers.contains("b", "c")
+        );
+    }
+
+    @Test
     void whenListIsEmpty_thenLengthReturnsZero() {
         MatcherAssert.assertThat(
             "Should return 0 for an empty list",
@@ -52,6 +71,16 @@ final class ListOfValuesTest {
     }
 
     @Test
+    void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
+        ListOfValues<String> strings = new ListOfValues<>(List.of("a", "b", "c"));
+        MatcherAssert.assertThat(
+            "Should return the correct length for a list with many elements",
+            Procedures.listLength.apply(strings),
+            Matchers.is(3)
+        );
+    }
+
+    @Test
     void whenListIsNotEmptyAndIndexIsGreaterThanZero_thenShouldReturnNthElement() {
         final ListIntegerCouple couple = new ListIntegerCouple(
             new ListOfValues<>(List.of("a", "b", "c")),
@@ -65,31 +94,13 @@ final class ListOfValuesTest {
     }
 
     @Test
-    void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
-        ListOfValues<String> strings = new ListOfValues<>(List.of("a", "b", "c"));
-        MatcherAssert.assertThat(
-            "Should return the correct length for a list with many elements",
-            Procedures.listLength.apply(strings),
-            Matchers.is(3)
+    void whenListHasTooLittleElements_thenShouldThrow() {
+        final ListIntegerCouple couple = new ListIntegerCouple(
+            new ListOfValues<>(List.of("a", "b", "c")),
+            3
         );
-    }
-
-    @Test
-    void whenListIsEmpty_thenItsCdrIsEmpty() {
-        MatcherAssert.assertThat(
-            "Should return an empty list for cdr of an empty list",
-            EMPTY_LIST.cdr().isEmpty(),
-            Matchers.is(true)
-        );
-    }
-
-    @Test
-    void whenListIsNotEmpty_thenItsCdrContainsAllElementsExceptTheFirst() {
-        final ListOfValues<String> list = new ListOfValues<>(List.of("a", "b", "c"));
-        MatcherAssert.assertThat(
-            "Should return a list without the first element",
-            list.cdr(),
-            Matchers.contains("b", "c")
-        );
+        assertThatThrownBy(() -> Procedures.nthElement.apply(couple))
+            .isInstanceOf(IllegalArgumentException.class)
+            .hasMessageEndingWith("doesn't have 3 elements");
     }
 }
