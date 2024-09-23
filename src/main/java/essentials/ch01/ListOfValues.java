@@ -16,7 +16,7 @@ public final class ListOfValues<T> implements Collection<T> {
         if (this.list.isEmpty()) {
             result = 0;
         } else {
-            result = Integer.MIN_VALUE;
+            result = this.cdr().length() + 1;
         }
         return result;
     }

@@ -19,6 +19,24 @@ final class ListOfValuesTest {
     }
 
     @Test
+    void whenListHasOneElement_thenLengthShouldBeOne() {
+        MatcherAssert.assertThat(
+            "Should return 1 for a list with one element",
+            new ListOfValues<>(List.of("a")).length(),
+            Matchers.is(1)
+        );
+    }
+
+    @Test
+    void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
+        MatcherAssert.assertThat(
+            "Should return the correct length for a list with many elements",
+            new ListOfValues<>(List.of("a", "b", "c")).length(),
+            Matchers.is(3)
+        );
+    }
+
+    @Test
     void whenListIsEmpty_thenItsCdrIsEmpty() {
         MatcherAssert.assertThat(
             "Should return an empty list for cdr of an empty list",
