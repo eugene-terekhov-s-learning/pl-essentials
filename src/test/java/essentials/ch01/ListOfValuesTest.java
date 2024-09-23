@@ -13,25 +13,27 @@ final class ListOfValuesTest {
     void whenListIsEmpty_thenReturnsZero() {
         MatcherAssert.assertThat(
             "Should return 0 for an empty list",
-            EMPTY_LIST.length(),
+            Procedures.listLength.apply(EMPTY_LIST),
             Matchers.is(0)
         );
     }
 
     @Test
     void whenListHasOneElement_thenLengthShouldBeOne() {
+        ListOfValues<String> strings = new ListOfValues<>(List.of("a"));
         MatcherAssert.assertThat(
             "Should return 1 for a list with one element",
-            new ListOfValues<>(List.of("a")).length(),
+            Procedures.listLength.apply(strings),
             Matchers.is(1)
         );
     }
 
     @Test
     void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
+        ListOfValues<String> strings = new ListOfValues<>(List.of("a", "b", "c"));
         MatcherAssert.assertThat(
             "Should return the correct length for a list with many elements",
-            new ListOfValues<>(List.of("a", "b", "c")).length(),
+            Procedures.listLength.apply(strings),
             Matchers.is(3)
         );
     }

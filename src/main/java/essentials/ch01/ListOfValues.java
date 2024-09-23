@@ -8,18 +8,7 @@ public final class ListOfValues<T> extends AbstractList<T> {
         super(list);
     }
 
-    public int length() {
-        final int result;
-        if (this.list.isEmpty()) {
-            result = 0;
-        } else {
-            result = this.cdr().length() + 1;
-        }
-        return result;
-    }
-
     public ListOfValues<T> cdr() {
         return new ListOfValues<>(this.list.stream().skip(1).toList());
     }
-
 }
