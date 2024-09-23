@@ -16,7 +16,7 @@ public class Procedures {
         final Integer n = couple.integer();
 
         if (lst.isEmpty()) {
-            throw new IllegalArgumentException("List should not be empty");
+            throw Report.listTooShort.apply(n);
         } else {
             if (n == 0) {
                 return lst.car();
