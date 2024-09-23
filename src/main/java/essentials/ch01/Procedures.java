@@ -22,6 +22,11 @@ public class Procedures {
         if (couple.integer() == 0) {
             return list.car();
         }
-        return null;
+        return Procedures.nthElement.apply(
+            new ListIntegerCouple(
+                list.cdr(),
+                couple.integer() - 1
+            )
+        );
     };
 }

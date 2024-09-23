@@ -52,6 +52,19 @@ final class ListOfValuesTest {
     }
 
     @Test
+    void whenListIsNotEmptyAndIndexIsGreaterThanZero_thenShouldReturnNthElement() {
+        final ListIntegerCouple couple = new ListIntegerCouple(
+            new ListOfValues<>(List.of("a", "b", "c")),
+            2
+        );
+        MatcherAssert.assertThat(
+            "Should return the third element of the list",
+            Procedures.nthElement.apply(couple),
+            Matchers.is("c")
+        );
+    }
+
+    @Test
     void whenListHasManyElements_thenLengthShouldBeComputedCorrectly() {
         ListOfValues<String> strings = new ListOfValues<>(List.of("a", "b", "c"));
         MatcherAssert.assertThat(
